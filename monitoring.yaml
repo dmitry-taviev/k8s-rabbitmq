@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: rabbitmq-monitoring-ps
+    tier: frontend
+    role: monitoring
+  name: rabbitmq-monitoring-ps
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 15672
+  selector:
+    name: rabbitmq-ps
