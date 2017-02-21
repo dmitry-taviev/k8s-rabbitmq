@@ -6,6 +6,7 @@ node {
 		stage 'checkout'
         slackSend("[<${env.BUILD_URL}|${env.JOB_NAME}:${env.BUILD_NUMBER}>] Checking out project..")
         checkout scm
+        sh('chmod 600 .erlang.cookie')
         slackSend color: 'good', message: "[<${env.BUILD_URL}|${env.JOB_NAME}:${env.BUILD_NUMBER}>] Checked out successfully. Ready for packaging!"
 		
 		stage 'build & push image'
