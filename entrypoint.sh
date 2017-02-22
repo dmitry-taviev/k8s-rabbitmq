@@ -8,9 +8,10 @@ if [[ "$HOSTNAME" == *-0 ]]
 then
     rabbitmq-server
 else
+	export RABBITMQ_LOGS=/var/log/rabbitmq/rabbitmq.log
 	rabbitmq-server -detached
 	rabbitmqctl stop_app
     rabbitmqctl join_cluster rabbit@${CLUSTER_WITH}.${CLUSTER_DNS}.${CLUSTER_NAMESPACE}.svc.cluster.local
     rabbitmqctl start_app
-    tail -f /dev/stdout
+    tail -f -n 1000 $RABBITMQ_LOGS
 fi
